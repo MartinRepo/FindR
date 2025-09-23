@@ -15,6 +15,7 @@ A fun terminal command-line tool that provides daily decompression fortune predi
 - 🔬 **Developer Pressure Index** - Analyzes local git/test/build data for risk and patience thresholds
 - 🌍 **Multi-language Support** - Support for Chinese and English
 - 🔐 **Birthday-based Personalization** - Optional birthday input for personalized analysis
+- 💾 **Local Preferences Storage** - Remembers your saved language and birthday for future sessions
 
 ## Tech Dimensions
 
@@ -62,6 +63,7 @@ findme --verbose
 
 # Personalized analysis with birthday
 findme --birthday "1990-05-15"
+# The birthday will be cached locally for next time
 
 # Show developer pressure index (analyzes local git/test/build data)
 findme --pressure
@@ -190,9 +192,19 @@ seed = SHA256(birthday_YYYYMMDD + today_YYYYMMDD + version + salt)
 
 ## Configuration
 
-Language settings are saved in `~/.findme/config.txt`:
-- `zh` - Chinese
-- `en` - English
+Preferences are saved in `~/.findme/config.txt` as simple key-value pairs:
+
+```
+language=en
+birthday=1990-05-15
+```
+
+- `language` is stored when you run `findme --set-language`
+- `birthday` is automatically saved the first time you pass `--birthday`
+
+To customize the location (for example in scripts or automated tests), set the
+`FINDME_CONFIG_DIR` environment variable to the directory where the config file
+should live.
 
 ## License
 
